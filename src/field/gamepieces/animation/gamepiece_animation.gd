@@ -157,6 +157,7 @@ func _on_gamepiece_arrived() -> void:
 
 
 func _on_gamepiece_direction_changed(new_direction: Vector2) -> void:
+	# The line "is_equal_approx(Vector2.ZERO)" makes sure the new direction is not Vector2.ZERO
 	if not new_direction.is_equal_approx(Vector2.ZERO):
 		var direction_value: = Directions.angle_to_direction(new_direction.angle())
 		set_direction(direction_value)

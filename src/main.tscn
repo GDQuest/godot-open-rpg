@@ -403,7 +403,6 @@ y_sort_enabled = true
 position = Vector2(24, 200)
 gameboard = ExtResource("6_kd8tv")
 blocks_movement = true
-move_speed = 96.0
 metadata/_edit_group_ = true
 
 [node name="GoBotGFX" parent="Field/Terrain/Gamepieces/Player" instance=ExtResource("12_oablq")]

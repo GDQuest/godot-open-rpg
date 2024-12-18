@@ -9,7 +9,7 @@
 ## [br][br][b]Note:[/b] The [code]gameboard[/code] is considered to be the playable area on which a
 ## Gamepiece may be placed. The gameboard is made up of cells, each of which may be occupied by one
 ##  or more gamepieces.
-@icon("res://assets/editor/icons/Gamepiece.svg")
+@icon("res://assets/editor/icons/Gamepiece.svg") #Makes editor icon player piece
 class_name Gamepiece extends Node2D
 
 ## Emitted when the gamepiece begins to travel towards a destination cell.
@@ -38,6 +38,8 @@ signal direction_changed(new_direction: Vector2)
 
 ## The [Gameboard] object used to tie the gamepiece to the gameboard. A gamepiece without a valid 
 ## gameboard reference will produce errors, stopping the program.
+## We use set() to make sure the gameboard is correct when the variable is changed. This property is described in the
+## documentation here: https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html#properties-setters-and-getters
 @export var gameboard: Gameboard:
 	set(value):
 		gameboard = value
@@ -66,17 +68,29 @@ signal direction_changed(new_direction: Vector2)
 ## derive their position from this follower and, consequently, appear to move smoothly.
 ## See [member camera_anchor] and [member gfx_anchor].
 var cell: = Vector2i.ZERO:
-	set = set_cell
+	set(value):
+		if Engine.is_editor_hint():
+			return
+	
+		var old_cell: = cell
+		cell = value
+	
+		if not is_inside_tree():
+			await ready
+	
+		position = gameboard.cell_to_pixel(cell)
+		cell_changed.emit(old_cell)
 
 ## The [code]direction[/code] is a unit vector that points where the gamepiece is 'looking'.
 ## In the event that the gamepiece is moving along a path, direction is updated automatically as
-## long as the gamepiece continues to move.
+## long as the gamepiece continues to move. Vector2.DOWN is considered the default value for the gameobject
+## to look down.
 var direction: = Vector2.DOWN:
 	set(value):
 		value = value.normalized()
-		if not direction.is_equal_approx(value):
-			direction = value
-			direction_changed.emit(direction)
+		#Piece movement works without if condition (editor's note)
+		direction = value
+		direction_changed.emit(direction)
 
 ## A camera may smoothly follow a travelling gamepiece by receiving the camera_anchor's transform.
 @onready var camera_anchor: = $Decoupler/Path2D/PathFollow2D/CameraAnchor as RemoteTransform2D
@@ -213,21 +227,6 @@ func reset_travel() -> void:
 ## Returns [code]true[/code] if the gamepiece is currently traversing a path.
 func is_moving() -> bool:
 	return is_physics_processing()
-
-
-func set_cell(value: Vector2i) -> void:
-	if Engine.is_editor_hint():
-		return
-	
-	var old_cell: = cell
-	cell = value
-	
-	if not is_inside_tree():
-		await ready
-	
-	position = gameboard.cell_to_pixel(cell)
-	cell_changed.emit(old_cell)
-
 
 func get_faced_cell() -> Vector2i:
 	return (Vector2(cell) + direction).round()

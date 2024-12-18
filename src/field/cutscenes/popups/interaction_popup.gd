@@ -59,7 +59,9 @@ func _ready() -> void:
 	if not Engine.is_editor_hint():
 		FieldEvents.input_paused.connect(_on_input_paused)
 
-
+## The areas are designed to ensure the player is
+## 1. Inside the area, and
+## 2. The necessary animations are loaded.
 func _on_area_entered(_entered_area: Area2D) -> void:
 	_is_shown = true
 

@@ -69,35 +69,8 @@ animations/join_default="res://addons/dialogic/Modules/Character/DefaultAnimatio
 animations/leave_default="res://addons/dialogic/Modules/Character/DefaultAnimations/instant_in_or_out.gd"
 text/autocolor_names=true
 settings/text_speed=1.0
-directories/dch_directory={
-"enemy_ghost": "res://maps/town/enemy_ghost.dch",
-"fan_of_four": "res://maps/town/fan_of_four.dch",
-"ghost": "res://maps/grove/ghost.dch",
-"monk": "res://maps/town/monk.dch",
-"runner": "res://maps/town/runner.dch",
-"smith": "res://maps/town/smith.dch",
-"thief": "res://maps/town/thief.dch",
-"warrior": "res://maps/town/warrior.dch",
-"wizard": "res://maps/town/wizard.dch"
-}
-directories/dtl_directory={
-"encounter_before_combat": "res://maps/town/encounter_before_combat.dtl",
-"encounter_on_loss": "res://maps/town/encounter_on_loss.dtl",
-"encounter_on_victory": "res://maps/town/encounter_on_victory.dtl",
-"fan_of_four": "res://maps/town/fan_of_four.dtl",
-"ghost": "res://maps/grove/ghost.dtl",
-"monk": "res://maps/town/monk.dtl",
-"opening_cutscene": "res://maps/opening_cutscene.dtl",
-"runner": "res://maps/town/runner.dtl",
-"sign": "res://maps/town/sign.dtl",
-"smith": "res://maps/town/smith.dtl",
-"strange_tree": "res://maps/town/strange_tree.dtl",
-"thief": "res://maps/town/thief.dtl",
-"wand_pedestal": "res://maps/house/wand_pedestal.dtl",
-"wand_pedestal_occupied": "res://maps/house/wand_pedestal_occupied.dtl",
-"warrior": "res://maps/town/warrior.dtl",
-"wizard": "res://maps/town/wizard.dtl"
-}
+directories/dch_directory={}
+directories/dtl_directory={}
 text/initial_text_reveal_skippable=true
 text/text_reveal_skip_delay=0.05
 text/autoadvance_per_character_delay=0.1
